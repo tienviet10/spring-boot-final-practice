@@ -2,6 +2,7 @@ package com.viettran.springbootfinalpractice.config;
 
 import com.viettran.springbootfinalpractice.security.CustomUserDetailsService;
 import com.viettran.springbootfinalpractice.security.JwtAuthenticationFilter;
+import com.viettran.springbootfinalpractice.security.UnauthorizedHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomUserDetailsService customUserDetailsService;
 
+    private final UnauthorizedHandler unauthorizedHandler;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -33,6 +35,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
+                .exceptionHandling(h -> h.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests(requests ->
                         requests.requestMatchers("/", "/actuator", "/auth/login").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
