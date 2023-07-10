@@ -22,4 +22,9 @@ public class HelloWorld {
 
         return "Log in as: " + principal.getEmail() + " User ID: " + principal.getUserId();
     }
+
+    @GetMapping("/admin")
+    public String admin(@AuthenticationPrincipal UserPrincipal principal) {
+        return "Admin " + principal.getUserId();
+    }
 }

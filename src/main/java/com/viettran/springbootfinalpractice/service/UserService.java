@@ -8,17 +8,27 @@ import java.util.Optional;
 @Service
 public class UserService {
     private static final String EXISTING_EMAIL = "test@test.com";
+    private static final String ANOTHER_EMAIL = "next@test.com";
 
     public Optional<UserEntity> findByEmail(String email) {
-        if (!EXISTING_EMAIL.equals(email)) {
+        if (EXISTING_EMAIL.equalsIgnoreCase(email)) {
+            var user = new UserEntity();
+            user.setId(1L);
+            user.setEmail(EXISTING_EMAIL);
+            user.setPassword("$2a$12$OBnerD3ZrnkqY/ofkaxune1jnpUscFhTGCcuVA9x5lgAGAtr6Bss2"); // test
+            user.setRole("ROLE_ADMIN");
+            user.setExtraInfo("My nice admin user");
+            return Optional.of(user);
+        } else if (ANOTHER_EMAIL.equalsIgnoreCase(email)) {
+            var user = new UserEntity();
+            user.setId(99L);
+            user.setEmail(ANOTHER_EMAIL);
+            user.setPassword("$2a$12$OBnerD3ZrnkqY/ofkaxune1jnpUscFhTGCcuVA9x5lgAGAtr6Bss2"); // test
+            user.setRole("ROLE_USER");
+            user.setExtraInfo("My nice simple user");
+            return Optional.of(user);
+        } else {
             return Optional.empty();
         }
-        var user = new UserEntity();
-        user.setId(1L);
-        user.setEmail(EXISTING_EMAIL);
-        user.setPassword("$2a$12$5Yx7AsAl9Zd3eUVhsWoNg.6IlzWrJxtm5/zdPCws4zEQoh67LTV6e");
-        user.setRole("ROLE_ADMIN");
-        user.setExtraInfo("extra info");
-        return Optional.of(user);
     }
 }

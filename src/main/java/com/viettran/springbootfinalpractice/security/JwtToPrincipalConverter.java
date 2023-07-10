@@ -13,7 +13,7 @@ public class JwtToPrincipalConverter {
     }
 
     private List<SimpleGrantedAuthority> extractAuthorities(DecodedJWT jwt) {
-        var claim = jwt.getClaim("authorities");
+        var claim = jwt.getClaim("roles");
 
         if (claim.isNull() || claim.isMissing()) {
             return List.of();
