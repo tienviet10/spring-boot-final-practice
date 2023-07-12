@@ -22,9 +22,9 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         var principal = (User) authentication.getPrincipal();
-        var roles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+        var role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().orElse("ROLE_USER");
 
-        var token = jwtIssuer.issue(principal.getId(), principal.getEmail(), roles);
+        var token = jwtIssuer.issue(principal.getId(), principal.getEmail(), role);
         return LoginResponse.builder()
                 .accessToken(token)
                 .build();

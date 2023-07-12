@@ -25,5 +25,4 @@ management:
 
 logging:
   level:
-    org.springframework.web: DEBUG
     org.hibernate.sql: DEBUG
