@@ -1,8 +1,8 @@
 package com.viettran.springbootfinalpractice.service;
 
+import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.model.LoginResponse;
 import com.viettran.springbootfinalpractice.security.JwtIssuer;
-import com.viettran.springbootfinalpractice.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,10 +21,10 @@ public class AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        var principal = (UserPrincipal) authentication.getPrincipal();
+        var principal = (User) authentication.getPrincipal();
         var roles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
-        var token = jwtIssuer.issue(principal.getUserId(), principal.getEmail(), roles);
+        var token = jwtIssuer.issue(principal.getId(), principal.getEmail(), roles);
         return LoginResponse.builder()
                 .accessToken(token)
                 .build();

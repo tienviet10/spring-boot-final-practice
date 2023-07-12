@@ -1,10 +1,7 @@
 package com.viettran.springbootfinalpractice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,7 +31,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override

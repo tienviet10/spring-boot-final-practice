@@ -1,11 +1,12 @@
 package com.viettran.springbootfinalpractice.security;
 
+import com.viettran.springbootfinalpractice.entity.User;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 public class UserPrincipleAuthenticationToken extends AbstractAuthenticationToken {
-    private final UserPrincipal principal;
+    private final User principal;
 
-    public UserPrincipleAuthenticationToken(UserPrincipal principal) {
+    public UserPrincipleAuthenticationToken(User principal) {
         super(principal.getAuthorities());
         this.principal = principal;
         setAuthenticated(true);
@@ -17,7 +18,7 @@ public class UserPrincipleAuthenticationToken extends AbstractAuthenticationToke
     }
 
     @Override
-    public UserPrincipal getPrincipal() {
+    public User getPrincipal() {
         return principal;
     }
 }
