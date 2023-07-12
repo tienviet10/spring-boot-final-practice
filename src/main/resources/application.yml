@@ -13,6 +13,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
+    defer-datasource-initialization: true
 management:
   endpoints:
     web:
