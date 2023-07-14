@@ -27,4 +27,9 @@ public class HelloWorld {
     public String admin(@AuthenticationPrincipal User principal) {
         return "Admin " + principal.getId();
     }
+
+    @GetMapping("/user")
+    public String user(@AuthenticationPrincipal User principal) {
+        return "User " + principal.getId();
+    }
 }

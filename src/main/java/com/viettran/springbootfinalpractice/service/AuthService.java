@@ -18,13 +18,11 @@ public class AuthService {
 
     public LoginResponse attemptLogin(String email, String password) {
         var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         var principal = (User) authentication.getPrincipal();
-        var role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().orElse("ROLE_USER");
-
-        var token = jwtIssuer.issue(principal.getId(), principal.getEmail(), role);
+        var roles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+        var token = jwtIssuer.issue(principal.getId(), principal.getEmail(), roles);
         return LoginResponse.builder()
                 .accessToken(token)
                 .build();

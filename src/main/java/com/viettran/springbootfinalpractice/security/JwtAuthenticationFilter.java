@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 .map(jwtToPrincipalConverter::convert)
                 .map(UserPrincipleAuthenticationToken::new)
                 .ifPresent(auth -> SecurityContextHolder.getContext().setAuthentication(auth));
-        
+
         filterChain.doFilter(request, response);
     }
 
@@ -38,6 +38,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         return Optional.empty();
     }
-
-
 }
