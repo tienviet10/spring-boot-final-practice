@@ -1,5 +1,6 @@
 package com.viettran.springbootfinalpractice.service;
 
+import com.viettran.springbootfinalpractice.aop.TrackTime;
 import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.model.LoginResponse;
 import com.viettran.springbootfinalpractice.security.JwtIssuer;
@@ -16,6 +17,7 @@ public class AuthService {
     private final JwtIssuer jwtIssuer;
     private final AuthenticationManager authenticationManager;
 
+    @TrackTime
     public LoginResponse attemptLogin(String email, String password) {
         var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
