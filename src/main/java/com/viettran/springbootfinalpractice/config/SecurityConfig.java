@@ -26,6 +26,7 @@ public class SecurityConfig {
 
     private final UnauthorizedHandler unauthorizedHandler;
 
+    // This code snippet configures the security filter chain for an HTTP request. It adds a JWT authentication filter, disables CORS and CSRF protection, sets the session creation policy to stateless, disables form login, sets an authentication entry point for unauthorized requests, and
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -39,9 +40,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests ->
                         requests.requestMatchers("/", "/actuator", "/auth/login").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasRole("USER")
                                 .anyRequest().authenticated());
-
-        //        http.headers().frameOptions().sameOrigin();
+        
         return http.build();
     }
 
