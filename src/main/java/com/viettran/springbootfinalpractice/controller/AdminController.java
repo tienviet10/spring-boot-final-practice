@@ -1,11 +1,15 @@
 package com.viettran.springbootfinalpractice.controller;
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.service.AdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,8 +18,21 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/admin/user/{id}")
-    public User getUser(@PathVariable int id) {
-        return adminService.getUser(id);
+    public MappingJacksonValue getUser(@PathVariable int id) {
+        // dynamic filtering, only filter out values for this endpoint only
+        User user = adminService.getUser(id);
+
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(user);
+
+        SimpleBeanPropertyFilter filter =
+                SimpleBeanPropertyFilter.filterOutAllExcept("id", "firstName", "lastName", "email_address", "roles");
+
+        FilterProvider filters =
+                new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
+
+        mappingJacksonValue.setFilters(filters);
+
+        return mappingJacksonValue;
     }
 
     @PostMapping("/admin/user")
