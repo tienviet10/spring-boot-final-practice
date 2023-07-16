@@ -1,5 +1,6 @@
 package com.viettran.springbootfinalpractice.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.viettran.springbootfinalpractice.validator.RoleSubset;
 import jakarta.persistence.*;
@@ -20,6 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "_users")
+@JsonFilter("UserInfoNeeded")
 public class User implements UserDetails {
 
     @Id
@@ -33,6 +35,7 @@ public class User implements UserDetails {
     private String lastName;
 
     @Email(message = "Email should be valid")
+    @JsonProperty("email_address")
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
