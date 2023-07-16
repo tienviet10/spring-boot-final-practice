@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class AdminController {
@@ -35,9 +37,18 @@ public class AdminController {
         return mappingJacksonValue;
     }
 
+    @GetMapping("/admin/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = adminService.getUsers();
+        System.out.print("users: ");
+        System.out.print(users);
+        return new ResponseEntity<>(users, HttpStatus.CREATED);
+    }
+
     @PostMapping("/admin/user")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = adminService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
+
 }

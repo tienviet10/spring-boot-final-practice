@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AdminService {
@@ -15,6 +17,10 @@ public class AdminService {
 
     public User getUser(int id) {
         return userRepository.findById((long) id).orElseThrow(() -> new UserNotFoundException("User not found. Id: " + id));
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
     public User createUser(User user) {
