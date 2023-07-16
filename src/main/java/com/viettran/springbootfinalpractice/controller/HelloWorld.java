@@ -1,6 +1,7 @@
 package com.viettran.springbootfinalpractice.controller;
 
 import com.viettran.springbootfinalpractice.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,12 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Locale;
 
 @RestController
+@RequiredArgsConstructor
 public class HelloWorld {
     private final MessageSource messageSource;
-
-    public HelloWorld(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
 
     @GetMapping("/")
     public String home() {

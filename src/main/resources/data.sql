@@ -12,3 +12,15 @@ VALUES (1, 'ROLE_USER'),
        (2, 'ROLE_ADMIN'),
        (2, 'ROLE_USER'),
        (3, 'ROLE_ADMIN');
+
+insert into post(id, description, user_id)
+values (1, 'I want to learn AWS', 1);
+
+insert into post(id, description, user_id)
+values (2, 'I want to learn DevOps', 2);
+
+insert into post(id, description, user_id)
+values (3, 'I want to Get AWS Certified', 2);
+
+insert into post(id, description, user_id)
+values (4, 'I want to learn Multi Cloud', 3);
