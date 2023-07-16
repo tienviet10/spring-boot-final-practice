@@ -38,11 +38,20 @@ public class AdminController {
     }
 
     @GetMapping("/admin/users")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<MappingJacksonValue> getAllUsers() {
         List<User> users = adminService.getUsers();
-        System.out.print("users: ");
-        System.out.print(users);
-        return new ResponseEntity<>(users, HttpStatus.CREATED);
+
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(users);
+
+        SimpleBeanPropertyFilter filter =
+                SimpleBeanPropertyFilter.filterOutAllExcept("id", "firstName", "lastName", "email_address", "roles");
+
+        FilterProvider filters =
+                new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
+
+        mappingJacksonValue.setFilters(filters);
+
+        return new ResponseEntity<>(mappingJacksonValue, HttpStatus.OK);
     }
 
     @PostMapping("/admin/user")
