@@ -1,10 +1,8 @@
 package com.viettran.springbootfinalpractice.controller;
 
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.service.AdminService;
+import com.viettran.springbootfinalpractice.utils.JacksonValueUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,38 +18,19 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/admin/user/{id}")
-    public MappingJacksonValue getUser(@PathVariable int id) {
+    public ResponseEntity<MappingJacksonValue> getUser(@PathVariable int id) {
         // dynamic filtering, only filter out values for this endpoint only
+        // Always use with JacksonValueUtil.getMappingJacksonValue()
         User user = adminService.getUser(id);
 
-        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(user);
-
-        SimpleBeanPropertyFilter filter =
-                SimpleBeanPropertyFilter.filterOutAllExcept("id", "firstName", "lastName", "email_address", "roles");
-
-        FilterProvider filters =
-                new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
-
-        mappingJacksonValue.setFilters(filters);
-
-        return mappingJacksonValue;
+        return new ResponseEntity<>(JacksonValueUtil.getMappingJacksonValue(user), HttpStatus.OK);
     }
 
     @GetMapping("/admin/users")
     public ResponseEntity<MappingJacksonValue> getAllUsers() {
         List<User> users = adminService.getUsers();
 
-        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(users);
-
-        SimpleBeanPropertyFilter filter =
-                SimpleBeanPropertyFilter.filterOutAllExcept("id", "firstName", "lastName", "email_address", "roles");
-
-        FilterProvider filters =
-                new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
-
-        mappingJacksonValue.setFilters(filters);
-
-        return new ResponseEntity<>(mappingJacksonValue, HttpStatus.OK);
+        return new ResponseEntity<>(JacksonValueUtil.getMappingJacksonValue(users), HttpStatus.OK);
     }
 
     @PostMapping("/admin/user")
@@ -59,5 +38,4 @@ public class AdminController {
         User savedUser = adminService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
-
 }
