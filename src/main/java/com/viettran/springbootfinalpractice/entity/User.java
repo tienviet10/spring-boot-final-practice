@@ -1,7 +1,11 @@
 package com.viettran.springbootfinalpractice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.viettran.springbootfinalpractice.validator.RoleSubset;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,18 +26,23 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long id;
 
+    @Size(min = 2, message = "First name should have at least 2 characters")
     private String firstName;
 
+    @Size(min = 2, message = "Last name should have at least 2 characters")
     private String lastName;
 
+    @Email(message = "Email should be valid")
     private String email;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotEmpty(message = "Password is required")
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "_user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
+    @RoleSubset(anyOf = {Role.ROLE_USER, Role.ROLE_ADMIN})
     private Set<Role> roles;
 
     @Override
