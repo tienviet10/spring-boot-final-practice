@@ -13,8 +13,6 @@ public class UserService {
     private final PostRepository postRepository;
 
     public List<Post> getPost() {
-        var allPost = postRepository.findAll();
-        System.out.println(allPost);
-        return allPost;
+        return postRepository.findAll();
     }
 }

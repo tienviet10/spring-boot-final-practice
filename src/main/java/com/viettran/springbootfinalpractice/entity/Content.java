@@ -19,5 +19,4 @@ public abstract class Content {
 
     @Size(min = 10)
     private String description;
-
 }
