@@ -14,10 +14,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/admin")
 public class AdminController {
     private final AdminService adminService;
 
-    @GetMapping("/admin/user/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<MappingJacksonValue> getUser(@PathVariable int id) {
         // dynamic filtering, only filter out values for this endpoint only
         // Always use with JacksonValueUtil.getMappingJacksonValue()
@@ -26,16 +27,17 @@ public class AdminController {
         return new ResponseEntity<>(JacksonValueUtil.getMappingJacksonValue(user), HttpStatus.OK);
     }
 
-    @GetMapping("/admin/users")
+    @GetMapping("/users")
     public ResponseEntity<MappingJacksonValue> getAllUsers() {
         List<User> users = adminService.getUsers();
 
         return new ResponseEntity<>(JacksonValueUtil.getMappingJacksonValue(users), HttpStatus.OK);
     }
 
-    @PostMapping("/admin/user")
+    @PostMapping("/user")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = adminService.createUser(user);
+
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 }

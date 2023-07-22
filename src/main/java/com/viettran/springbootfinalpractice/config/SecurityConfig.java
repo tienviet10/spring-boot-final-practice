@@ -23,7 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomUserDetailsService customUserDetailsService;
-
     private final UnauthorizedHandler unauthorizedHandler;
 
     // This code snippet configures the security filter chain for an HTTP request. It adds a JWT authentication filter, disables CORS and CSRF protection, sets the session creation policy to stateless, disables form login, sets an authentication entry point for unauthorized requests, and
