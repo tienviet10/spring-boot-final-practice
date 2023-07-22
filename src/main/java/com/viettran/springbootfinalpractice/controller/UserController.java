@@ -1,8 +1,12 @@
 package com.viettran.springbootfinalpractice.controller;
 
+import com.viettran.springbootfinalpractice.entity.Article;
+import com.viettran.springbootfinalpractice.entity.Content;
 import com.viettran.springbootfinalpractice.entity.Post;
 import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.exception.UserNotFoundException;
+import com.viettran.springbootfinalpractice.model.PostRequest;
+import com.viettran.springbootfinalpractice.repository.ContentRepository;
 import com.viettran.springbootfinalpractice.repository.PostRepository;
 import com.viettran.springbootfinalpractice.repository.UserRepository;
 import com.viettran.springbootfinalpractice.service.UserService;
@@ -21,6 +25,7 @@ import java.util.Optional;
 public class UserController {
     private final UserRepository repository;
     private final PostRepository postRepository;
+    private final ContentRepository contentRepository;
     private final UserService userService;
 
     @GetMapping("/users/{id}/posts")
@@ -55,5 +60,23 @@ public class UserController {
     @GetMapping("/users/posts")
     public List<Post> posts() {
         return userService.getPost();
+    }
+
+    @PostMapping("/users/{id}/post")
+    public Post newPost(@PathVariable long id, @RequestBody PostRequest payload) {
+        Optional<User> user = repository.findById(id);
+
+        if (user.isEmpty())
+            throw new UserNotFoundException("id:" + id);
+
+        Post post = payload.getPost();
+        Article article = payload.getArticle();
+
+        Content savedContent = contentRepository.save(article);
+        
+        post.setUser(user.get());
+        post.setContent(savedContent);
+
+        return postRepository.save(post);
     }
 }
