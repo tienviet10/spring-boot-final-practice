@@ -13,6 +13,7 @@ import com.viettran.springbootfinalpractice.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -62,19 +63,14 @@ public class UserController {
         return userService.getPost();
     }
 
-    @PostMapping("/users/{id}/post")
-    public Post newPost(@PathVariable long id, @RequestBody PostRequest payload) {
-        Optional<User> user = repository.findById(id);
-
-        if (user.isEmpty())
-            throw new UserNotFoundException("id:" + id);
-
+    @PostMapping("/users/post")
+    public Post newPost(@AuthenticationPrincipal User principal, @RequestBody PostRequest payload) {
         Post post = payload.getPost();
         Article article = payload.getArticle();
 
         Content savedContent = contentRepository.save(article);
-        
-        post.setUser(user.get());
+
+        post.setUser(principal);
         post.setContent(savedContent);
 
         return postRepository.save(post);
