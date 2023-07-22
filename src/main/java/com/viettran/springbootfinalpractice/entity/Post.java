@@ -15,8 +15,12 @@ public class Post {
     @GeneratedValue
     private Long id;
 
-    @Size(min = 10)
-    private String description;
+    @Size(min = 2)
+    private String type;
+
+    @ManyToOne
+    @JoinColumn(name = "content_id")
+    private Content content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
@@ -24,6 +28,6 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post [id=" + id + ", description=" + description + "]";
+        return "Post [id=" + id + ", description=" + type + "]";
     }
 }

@@ -5,6 +5,7 @@ import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.exception.UserNotFoundException;
 import com.viettran.springbootfinalpractice.repository.PostRepository;
 import com.viettran.springbootfinalpractice.repository.UserRepository;
+import com.viettran.springbootfinalpractice.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class UserController {
     private final UserRepository repository;
     private final PostRepository postRepository;
+    private final UserService userService;
 
     @GetMapping("/users/{id}/posts")
     public List<Post> retrievePostsForUser(@PathVariable long id) {
@@ -48,5 +50,10 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/users/posts")
+    public List<Post> posts() {
+        return userService.getPost();
     }
 }

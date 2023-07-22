@@ -29,12 +29,12 @@ public class HelloWorld {
     public String helloWorldInternationalized() {
         // LocaleContextHolder is a helper class that provides Locale resolution from header
         Locale locale = LocaleContextHolder.getLocale();
+
         return messageSource.getMessage("good.morning.message", null, "Default Message", locale);
     }
 
     @GetMapping("/secured")
     public String secured(@AuthenticationPrincipal User principal) {
-
         return "Log in as: " + principal.getEmail() + " User ID: " + principal.getId();
     }
 

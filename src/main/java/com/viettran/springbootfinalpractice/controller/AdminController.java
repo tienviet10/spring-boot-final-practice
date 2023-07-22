@@ -36,6 +36,7 @@ public class AdminController {
     @PostMapping("/admin/user")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = adminService.createUser(user);
+        
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 }
