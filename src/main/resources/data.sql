@@ -47,8 +47,22 @@ SET @content_id = LAST_INSERT_ID();
 INSERT INTO article (id, text, author)
 VALUES (@content_id, 'Article Text', 'Article Author');
 
+-- Insert into the 'content' table first
+INSERT INTO content (title, description)
+VALUES ('Article 2', 'Article Description 2');
+
+-- Get the ID of the content we just inserted
+SET @content_id = LAST_INSERT_ID();
+
+-- Then insert into the 'article' table
+INSERT INTO article (id, text, author)
+VALUES (@content_id, 'Article Text 2', 'Article Author 2');
+
 INSERT INTO post (id, type, content_id, user_id)
 VALUES (1, 'Video', 1, 1);
 
 INSERT INTO post (id, type, content_id, user_id)
 VALUES (2, 'Article', 2, 1);
+
+INSERT INTO post (id, type, content_id, user_id)
+VALUES (3, 'Article', 3, 1);
