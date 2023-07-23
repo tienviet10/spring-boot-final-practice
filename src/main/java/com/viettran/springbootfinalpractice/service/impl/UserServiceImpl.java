@@ -10,6 +10,7 @@ import com.viettran.springbootfinalpractice.repository.ContentRepository;
 import com.viettran.springbootfinalpractice.repository.PostRepository;
 import com.viettran.springbootfinalpractice.repository.UserRepository;
 import com.viettran.springbootfinalpractice.service.UserService;
+import com.viettran.springbootfinalpractice.utils.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -52,8 +53,20 @@ public class UserServiceImpl implements UserService {
     }
 
     public Post addNewPost(User principal, PostRequest payload) {
+        if (payload == null || payload.getPost() == null || payload.getArticle() == null) {
+            throw new IllegalArgumentException("Invalid payload");
+        }
+
         Post post = payload.getPost();
         Article article = payload.getArticle();
+
+        if (ValidationUtils.invalidateArticle(article)) {
+            throw new IllegalArgumentException("Article title, description, text, and author in articles must not be empty");
+        }
+
+        if (ValidationUtils.invalidatePost(post)) {
+            throw new IllegalArgumentException("Post type in post must not be empty");
+        }
 
         Content savedContent = contentRepository.save(article);
 
