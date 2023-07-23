@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<HttpResponse> newPost(@AuthenticationPrincipal User principal, @RequestBody PostRequest payload) {
+    public ResponseEntity<HttpResponse> newPost(@AuthenticationPrincipal User principal, @Valid @RequestBody PostRequest payload) {
         Post post = userService.addNewPost(principal, payload);
 
         return ResponseEntity.created(URI.create("")).body(
