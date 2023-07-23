@@ -63,7 +63,8 @@ public class UserServiceImpl implements UserService {
         return postRepository.save(post);
     }
 
-    public List<Post> getPosts() {
-        return postRepository.findAll();
+    public List<Content> getPosts() {
+        List<Post> posts = postRepository.findAll();
+        return posts.stream().map(Post::getContent).toList();
     }
 }

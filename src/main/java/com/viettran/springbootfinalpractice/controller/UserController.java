@@ -1,5 +1,6 @@
 package com.viettran.springbootfinalpractice.controller;
 
+import com.viettran.springbootfinalpractice.entity.Content;
 import com.viettran.springbootfinalpractice.entity.Post;
 import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.model.HttpResponse;
@@ -39,11 +40,11 @@ public class UserController {
 
     @GetMapping("/posts")
     public ResponseEntity<HttpResponse> posts() {
-        List<Post> posts = userService.getPosts();
+        List<Content> contents = userService.getPosts();
         return ResponseEntity.ok(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())
-                        .data(of("posts", posts))
+                        .data(of("posts", contents))
                         .message("Posts retrieved successfully")
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())

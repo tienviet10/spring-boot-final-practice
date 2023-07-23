@@ -1,5 +1,6 @@
 package com.viettran.springbootfinalpractice.service;
 
+import com.viettran.springbootfinalpractice.entity.Content;
 import com.viettran.springbootfinalpractice.entity.Post;
 import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.model.PostRequest;
@@ -14,5 +15,5 @@ public interface UserService {
 
     Post addNewPost(User principal, PostRequest payload);
 
-    List<Post> getPosts();
+    List<Content> getPosts();
 }
