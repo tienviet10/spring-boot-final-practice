@@ -58,11 +58,11 @@ SET @content_id = LAST_INSERT_ID();
 INSERT INTO article (id, text, author)
 VALUES (@content_id, 'Article Text 2', 'Article Author 2');
 
-INSERT INTO post (id, type, content_id, user_id)
-VALUES (1, 'Video', 1, 1);
+INSERT INTO post (id, type, content_id, user_id, created_at)
+VALUES (1, 'Video', 1, 1, '2023-07-22 14:25:10');
 
-INSERT INTO post (id, type, content_id, user_id)
-VALUES (2, 'Article', 2, 1);
+INSERT INTO post (id, type, content_id, user_id, created_at)
+VALUES (2, 'Article', 2, 1, '2023-07-22 15:30:15');
 
-INSERT INTO post (id, type, content_id, user_id)
-VALUES (3, 'Article', 3, 1);
+INSERT INTO post (id, type, content_id, user_id, created_at)
+VALUES (3, 'Article', 3, 1, '2023-07-22 14:25:10');

@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,6 +27,11 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private User user;
+
+    //    @Temporal(TemporalType.TIMESTAMP)
+    //    @CreatedDate
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @Override
     public String toString() {

@@ -1,7 +1,7 @@
 package com.viettran.springbootfinalpractice.controller;
 
 import com.viettran.springbootfinalpractice.entity.User;
-import com.viettran.springbootfinalpractice.service.HelloWorldService;
+import com.viettran.springbootfinalpractice.service.impl.HelloWorldServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class HelloWorld {
-    private final HelloWorldService helloWorldService;
+    private final HelloWorldServiceImpl helloWorldService;
 
     @GetMapping("/")
     public String home() {

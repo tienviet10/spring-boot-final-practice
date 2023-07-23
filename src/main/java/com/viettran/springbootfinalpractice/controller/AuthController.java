@@ -2,7 +2,7 @@ package com.viettran.springbootfinalpractice.controller;
 
 import com.viettran.springbootfinalpractice.model.LoginRequest;
 import com.viettran.springbootfinalpractice.model.LoginResponse;
-import com.viettran.springbootfinalpractice.service.AuthService;
+import com.viettran.springbootfinalpractice.service.impl.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
-    private final AuthService authService;
+    private final AuthServiceImpl authService;
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody @Validated LoginRequest requests) {

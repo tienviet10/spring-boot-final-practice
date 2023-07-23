@@ -1,7 +1,7 @@
 package com.viettran.springbootfinalpractice.controller;
 
 import com.viettran.springbootfinalpractice.entity.User;
-import com.viettran.springbootfinalpractice.service.AdminService;
+import com.viettran.springbootfinalpractice.service.impl.AdminServiceImpl;
 import com.viettran.springbootfinalpractice.utils.JacksonValueUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
-    private final AdminService adminService;
+    private final AdminServiceImpl adminService;
 
     @GetMapping("/user/{id}")
     public ResponseEntity<MappingJacksonValue> getUser(@PathVariable int id) {

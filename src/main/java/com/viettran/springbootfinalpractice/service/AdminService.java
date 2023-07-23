@@ -1,30 +1,13 @@
 package com.viettran.springbootfinalpractice.service;
 
 import com.viettran.springbootfinalpractice.entity.User;
-import com.viettran.springbootfinalpractice.exception.UserNotFoundException;
-import com.viettran.springbootfinalpractice.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class AdminService {
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+public interface AdminService {
+    User getUser(int id);
 
-    public User getUser(int id) {
-        return userRepository.findById((long) id).orElseThrow(() -> new UserNotFoundException("User not found. Id: " + id));
-    }
+    List<User> getUsers();
 
-    public List<User> getUsers() {
-        return userRepository.findAll();
-    }
-
-    public User createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
+    User createUser(User user);
 }
