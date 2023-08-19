@@ -14,7 +14,8 @@ public class HelloWorld {
 
     @GetMapping("/")
     public String home() {
-        return "Home";
+        throw new RuntimeException("Some error has happened! Contact support at ***-***");
+//        return "Home";
     }
 
     @GetMapping("/hello")
@@ -41,4 +42,5 @@ public class HelloWorld {
     public String user(@AuthenticationPrincipal User principal) {
         return "User " + principal.getId();
     }
+
 }

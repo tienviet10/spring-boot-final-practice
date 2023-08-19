@@ -54,6 +54,9 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Post> posts;
 
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
