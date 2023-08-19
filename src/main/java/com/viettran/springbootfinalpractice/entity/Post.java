@@ -1,6 +1,6 @@
 package com.viettran.springbootfinalpractice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class Post implements Serializable {
     private Content content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private User user;
 
     //    @Temporal(TemporalType.TIMESTAMP)

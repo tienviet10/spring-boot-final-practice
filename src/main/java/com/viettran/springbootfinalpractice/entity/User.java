@@ -1,7 +1,6 @@
 package com.viettran.springbootfinalpractice.entity;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.viettran.springbootfinalpractice.validator.RoleSubset;
 import jakarta.persistence.*;
@@ -23,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "_users")
-@JsonFilter("UserInfoNeeded")
+//@JsonFilter("UserInfoNeeded")
 public class User implements UserDetails {
 
     @Id
@@ -50,8 +49,8 @@ public class User implements UserDetails {
     @RoleSubset(anyOf = {Role.ROLE_USER, Role.ROLE_ADMIN})
     private Set<Role> roles;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
     private List<Post> posts;
 
     @ManyToMany(mappedBy = "authors")

@@ -1,6 +1,7 @@
 package com.viettran.springbootfinalpractice.controller;
 
 import com.viettran.springbootfinalpractice.entity.User;
+import com.viettran.springbootfinalpractice.model.UserDTO;
 import com.viettran.springbootfinalpractice.service.impl.AdminServiceImpl;
 import com.viettran.springbootfinalpractice.utils.JacksonValueUtil;
 import jakarta.validation.Valid;
@@ -39,5 +40,10 @@ public class AdminController {
         User savedUser = adminService.createUser(user);
 
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/with-posts")
+    public List<UserDTO> getUsersWithPosts() {
+        return adminService.findAllWithPosts();
     }
 }
