@@ -2,6 +2,7 @@ package com.viettran.springbootfinalpractice.controller;
 
 import com.viettran.springbootfinalpractice.entity.User;
 import com.viettran.springbootfinalpractice.model.UserDTO;
+import com.viettran.springbootfinalpractice.model.UserProjection;
 import com.viettran.springbootfinalpractice.service.impl.AdminServiceImpl;
 import com.viettran.springbootfinalpractice.utils.JacksonValueUtil;
 import jakarta.validation.Valid;
@@ -43,7 +44,17 @@ public class AdminController {
     }
 
     @GetMapping("/with-posts")
-    public List<UserDTO> getUsersWithPosts() {
+    public List<UserProjection> getUsersWithPosts() {
         return adminService.findAllWithPosts();
+    }
+
+    @GetMapping("/with-posts-two")
+    public List<UserDTO> getUsersWithPostsTwo() {
+        return adminService.findAllWithPostsTwo();
+    }
+
+    @GetMapping("/with-posts-three")
+    public List<UserDTO> getUsersWithPostsThree() {
+        return adminService.findAllUsersWithPostsThree();
     }
 }

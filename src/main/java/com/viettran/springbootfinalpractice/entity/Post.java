@@ -1,6 +1,7 @@
 package com.viettran.springbootfinalpractice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Post implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "content_id")
+    @JsonManagedReference
     private Content content;
 
     @ManyToOne(fetch = FetchType.LAZY)
